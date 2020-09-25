@@ -12,7 +12,7 @@ pip install git+https://github.com/pyannote/pyannote-audio
 
 2. Data Preparation
 
-Before you can start any of the tutorials, you need to prepare your [data](tutorials/data_preparation/). 
+Before you can start any of the tutorials, you need to prepare your [data](data_preparation/).
 
 ## Citation
 ([↑up to table of contents](#table-of-contents))
