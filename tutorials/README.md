@@ -4,15 +4,15 @@ There are two ways of using pyannote, you can use the cli along with yaml files 
 
 # First Steps
 
-1) Install the library
+1. Install the library
 
 ```
 pip install git+https://github.com/pyannote/pyannote-audio
 ```
 
-2) Data Preparation
+2. Data Preparation
 
-Before you can start any of the tutorials, you need to prepare you [data](tutorials/data_preparation/)
+Before you can start any of the tutorials, you need to prepare your [data](tutorials/data_preparation/). 
 
 ## Citation
 ([↑up to table of contents](#table-of-contents))
