@@ -10,22 +10,6 @@ This tutorial teaches how to train, validate, and apply a speaker embedding neur
 - [Application](#application)
 - [More options](#more-options)
 
-## Citation
-([↑up to table of contents](#table-of-contents))
-
-If you use `pyannote-audio` for speaker (or audio) neural embedding, please cite the following papers:
-
-```bibtex
-@inproceedings{Bredin2020,
-  Title = {{pyannote.audio: neural building blocks for speaker diarization}},
-  Author = {{Bredin}, Herv{\'e} and {Yin}, Ruiqing and {Coria}, Juan Manuel and {Gelly}, Gregory and {Korshunov}, Pavel and {Lavechin}, Marvin and {Fustes}, Diego and {Titeux}, Hadrien and {Bouaziz}, Wassim and {Gill}, Marie-Philippe},
-  Booktitle = {ICASSP 2020, IEEE International Conference on Acoustics, Speech, and Signal Processing},
-  Address = {Barcelona, Spain},
-  Month = {May},
-  Year = {2020},
-}
-```
-
 ## Configuration
 ([↑up to table of contents](#table-of-contents))
 

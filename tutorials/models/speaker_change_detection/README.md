@@ -10,32 +10,6 @@ This tutorial assumes that you have already followed the [data preparation](../.
 - [Application](#application)
 - [More options](#more-options)
 
-## Citation
-([↑up to table of contents](#table-of-contents))
-
-If you use `pyannote-audio` for speaker change detection, please cite the following papers:
-
-```bibtex
-@inproceedings{Bredin2020,
-  Title = {{pyannote.audio: neural building blocks for speaker diarization}},
-  Author = {{Bredin}, Herv{\'e} and {Yin}, Ruiqing and {Coria}, Juan Manuel and {Gelly}, Gregory and {Korshunov}, Pavel and {Lavechin}, Marvin and {Fustes}, Diego and {Titeux}, Hadrien and {Bouaziz}, Wassim and {Gill}, Marie-Philippe},
-  Booktitle = {ICASSP 2020, IEEE International Conference on Acoustics, Speech, and Signal Processing},
-  Address = {Barcelona, Spain},
-  Month = {May},
-  Year = {2020},
-}
-```
-```bibtex
-@inproceedings{Yin2017,
-  Author = {Ruiqing Yin and Herv\'e Bredin and Claude Barras},
-  Title = {{Speaker Change Detection in Broadcast TV using Bidirectional Long Short-Term Memory Networks}},
-  Booktitle = {{Interspeech 2017, 18th Annual Conference of the International Speech Communication Association}},
-  Year = {2017},
-  Month = {August},
-  Address = {Stockholm, Sweden},
-}
-```
-
 ## Configuration
 ([↑up to table of contents](#table-of-contents))
 
@@ -165,3 +139,31 @@ $ pyannote-audio --help
 ```
 
 That's all folks!
+
+## Citation
+([↑up to table of contents](#table-of-contents))
+
+If you use `pyannote-audio` for speaker change detection, please cite the following papers:
+
+```bibtex
+@inproceedings{Bredin2020,
+  Title = {{pyannote.audio: neural building blocks for speaker diarization}},
+  Author = {{Bredin}, Herv{\'e} and {Yin}, Ruiqing and {Coria}, Juan Manuel and {Gelly}, Gregory and {Korshunov}, Pavel and {Lavechin}, Marvin and {Fustes}, Diego and {Titeux}, Hadrien and {Bouaziz}, Wassim and {Gill}, Marie-Philippe},
+  Booktitle = {ICASSP 2020, IEEE International Conference on Acoustics, Speech, and Signal Processing},
+  Address = {Barcelona, Spain},
+  Month = {May},
+  Year = {2020},
+}
+```
+```bibtex
+@inproceedings{Yin2017,
+  Author = {Ruiqing Yin and Herv\'e Bredin and Claude Barras},
+  Title = {{Speaker Change Detection in Broadcast TV using Bidirectional Long Short-Term Memory Networks}},
+  Booktitle = {{Interspeech 2017, 18th Annual Conference of the International Speech Communication Association}},
+  Year = {2017},
+  Month = {August},
+  Address = {Stockholm, Sweden},
+}
+```
+
+
