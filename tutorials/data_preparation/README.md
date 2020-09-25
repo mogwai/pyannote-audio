@@ -53,7 +53,7 @@ $ export TUTORIAL_DIR="$PWD/tutorials/data_preparation"
 [Download](http://groups.inf.ed.ac.uk/ami/download/) the `Headset mix` subset of `AMI`.  For convenience, we provide a [script](./download_ami.sh) that does it for you: 
 
 ```bash
-$ export DOWNLOAD_TO=/path/to/where/you/want/to/download/ami/database
+$ export DOWNLOAD_TO=~/.pyannote
 $ mkdir -p ${DOWNLOAD_TO}
 $ bash ${TUTORIAL_DIR}/download_ami.sh ${DOWNLOAD_TO}
 ```
