@@ -17,9 +17,9 @@ For illustration purposes, we will use the freely available [AMI corpus](http://
 Start by cloning the `pyannote.audio` repository:
 
 ```bash
-$ git clone https://github.com/pyannote/pyannote-audio.git
-$ cd pyannote-audio
-$ export TUTORIAL_DIR="$PWD/tutorials/data_preparation"
+git clone https://github.com/pyannote/pyannote-audio.git
+cd pyannote-audio
+export TUTORIAL_DIR="$PWD/tutorials/data_preparation"
 ```
 
 ## Audio files
@@ -35,8 +35,10 @@ $ bash ${TUTORIAL_DIR}/download_ami.sh ${DOWNLOAD_TO}
 This script also *fixes* some of the files from the dataset that are unreadable with `scipy` because of wrongly formatted wav chunks. The audio files are therefore not exactly the same as the original ones. You should end up with a collection of `wav` files in the `${DOWNLOAD_TO}/amicorpus` directory:
 
 ```bash
-$ cd ${DOWNLOAD_TO}/amicorpus
-$ find . | grep wav | sort | head -n 5
+cd ${DOWNLOAD_TO}/amicorpus
+find . | grep wav | sort | head -n 5
+```
+```
 ./EN2001a/audio/EN2001a.Mix-Headset.wav
 ./EN2001b/audio/EN2001b.Mix-Headset.wav
 ./EN2001d/audio/EN2001d.Mix-Headset.wav
@@ -48,14 +50,16 @@ Most `pyannote.audio` tutorials rely on noise extracted from the [MUSAN corpus](
 For convenience, we also provide a [script](./download_musan.sh) that downloads it for you.
 
 ```bash
-$ bash ${TUTORIAL_DIR}/download_musan.sh ${DOWNLOAD_TO}
+bash ${TUTORIAL_DIR}/download_musan.sh ${DOWNLOAD_TO}
 ```
 
 You should end up with a collection of `wav` files in the `${DOWNLOAD_TO}/musan` directory:
 
 ```bash
-$ cd ${DOWNLOAD_TO}/musan
-$ find . | grep wav | sort | head -n 5
+cd ${DOWNLOAD_TO}/musan
+find . | grep wav | sort | head -n 5
+```
+```
 ./music/fma/music-fma-0000.wav
 ./music/fma/music-fma-0001.wav
 ./music/fma/music-fma-0002.wav
@@ -67,7 +71,7 @@ $ find . | grep wav | sort | head -n 5
 For convenience, we also provide [such a file](./database.yml) that needs to be copied at the root of the directory that contains the datasets.
 
 ```bash
-$ cp ${TUTORIAL_DIR}/database.yml ${DOWNLOAD_TO}
+cp ${TUTORIAL_DIR}/database.yml ${DOWNLOAD_TO}
 ```
 
 See [`pyannote.database` documentation](https://github.com/pyannote/pyannote-database#preprocessors) for other possible locations for `database.yml`.
@@ -92,7 +96,9 @@ For convenience, we also provide RTTM reference files for AMI dataset.
 Here what it looks like for the training subset:
 
 ```bash
-$ head -n 10 ${TUTORIAL_DIR}/AMI/MixHeadset.train.rttm
+head -n 10 ${TUTORIAL_DIR}/AMI/MixHeadset.train.rttm
+```
+```
 SPEAKER ES2002b.Mix-Headset 1 14.4270 1.3310 <NA> <NA> FEE005 <NA> <NA>
 SPEAKER ES2002b.Mix-Headset 1 16.9420 1.0360 <NA> <NA> FEE005 <NA> <NA>
 SPEAKER ES2002b.Mix-Headset 1 19.4630 1.0600 <NA> <NA> FEE005 <NA> <NA>
@@ -118,7 +124,9 @@ Each line in this file must follow the following convention:
 Here is what it looks like for `AMI` training subset
 
 ```bash
-$ head -n 10 ${TUTORIAL_DIR}/AMI/MixHeadset.train.uem
+head -n 10 ${TUTORIAL_DIR}/AMI/MixHeadset.train.uem
+```
+```
 EN2001a.Mix-Headset 1 0.000 5250.240063
 EN2001b.Mix-Headset 1 0.000 3451.882687
 EN2001d.Mix-Headset 1 0.000 3546.378688
@@ -141,14 +149,14 @@ All you have to do is to copy the annotation files at the root of the directory 
 
 ```bash
 # replace TUTORIAL_DIR placeholder with actual location
-$ cp -r ${TUTORIAL_DIR}/AMI ${DOWNLOAD_TO}
+cp -r ${TUTORIAL_DIR}/AMI ${DOWNLOAD_TO}
 ```
 
 It should look like this:
 
 ```bash
 # have a quick look at what it looks like
-$ cat ${DOWNLOAD_TO}/database.yml
+cat ${DOWNLOAD_TO}/database.yml
 ```
 
 ```yaml
@@ -191,7 +199,7 @@ The final step is to tell `pyannote.database` about the location of the configur
 
 ```bash
 # tell pyannote.database about the location of the configuration file
-$ export PYANNOTE_DATABASE_CONFIG=${DOWNLOAD_TO}/database.yml
+export PYANNOTE_DATABASE_CONFIG=${DOWNLOAD_TO}/database.yml
 ```
 
 **Congratulations:** you have just defined a new experimental protocol called `AMI.SpeakerDiarization.MixHeadset` and a bunch of `MUSAN` collections that will be used in other tutorials.
