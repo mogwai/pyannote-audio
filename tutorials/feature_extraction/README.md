@@ -39,8 +39,10 @@ feature_extraction:
 The following command will extract features for all files of the `MixHeadset` protocol of the AMI database.
 
 ```bash
-$ export EXPERIMENT_DIR=tutorials/feature_extraction
-$ pyannote-speech-feature ${EXPERIMENT_DIR} AMI.SpeakerDiarization.MixHeadset
+export EXPERIMENT_DIR=tutorials/feature_extraction
+pyannote-speech-feature ${EXPERIMENT_DIR} AMI.SpeakerDiarization.MixHeadset
+```
+```
 Development set: 21it [01:28,  4.21s/it]
 Test set: 22it [01:39,  4.53s/it]
 Training set: 115it [09:33,  4.99s/it]
@@ -48,7 +50,9 @@ Training set: 115it [09:33,  4.99s/it]
 
 This will create one a bunch of files in `EXPERIMENT_DIR`.
 ```bash
-$ ls $EXPERIMENT_DIR
+ls $EXPERIMENT_DIR
+```
+```
 AMI config.yml metadata.yml
 $ ls $EXPERIMENT_DIR/AMI | head -n 5
 EN2001a.Mix-Headset.npy
@@ -63,18 +67,20 @@ EN2002b.Mix-Headset.npy
 
 
 ```python
->>> from pyannote.audio.features import Precomputed
->>> precomputed = Precomputed('tutorials/feature_extraction')
->>> from pyannote.database import get_protocol
->>> protocol = get_protocol('AMI.SpeakerDiarization.MixHeadset')
->>> for current_file in protocol.test():
-...     features = precomputed(current_file)
-...     break
->>> X = features.data                   # numpy array containing all features
->>> X.shape
-(178685, 59)
->>> from pyannote.core import Segment
->>> features.crop(Segment(10.2, 11.4))  # numpy array containing local features
+from pyannote.audio.features import Precomputed
+precomputed = Precomputed('tutorials/feature_extraction')
+from pyannote.database import get_protocol
+protocol = get_protocol('AMI.SpeakerDiarization.MixHeadset')
+for current_file in protocol.test():
+    features = precomputed(current_file)
+    break
+X = features.data                   # numpy array containing all features
+X.shape
+# (178685, 59)
+from pyannote.core import Segment
+features.crop(Segment(10.2, 11.4))  # numpy array containing local features
+```
+```
 array([[ 0.85389346,  0.71583151,  0.71233984, ..., -0.89612021,
         -0.76569814, -0.19767237],
        [-0.47338321, -0.20921302,  0.7786835 , ..., -0.25947172,
@@ -94,5 +100,5 @@ array([[ 0.85389346,  0.71583151,  0.71233984, ..., -0.89612021,
 ([↑up to table of contents](#table-of-contents))
 
 ```bash
-$ pyannote-speech-feature --help
+pyannote-speech-feature --help
 ```
