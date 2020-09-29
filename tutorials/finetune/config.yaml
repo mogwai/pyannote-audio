@@ -1,0 +1,5 @@
+# We override some of the defaults here
+task:
+   name: pyannote.audio.pipeline.SpeechActivityDetection
+   params:
+      batch_size: 16

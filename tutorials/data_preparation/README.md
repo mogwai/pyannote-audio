@@ -3,17 +3,6 @@
 In this tutorial, you will learn how to setup your own audio dataset for use with `pyannote.audio`.  
 For illustration purposes, we will use the freely available [AMI corpus](http://groups.inf.ed.ac.uk/ami/corpus):
 
-```bibtex
-@article{Carletta2007,  
-  Title = {{Unleashing the killer corpus: experiences in creating the multi-everything AMI Meeting Corpus}},
-  Author = {Carletta, Jean},
-  Journal = {Language Resources and Evaluation},
-  Volume = {41},
-  Number = {2},
-  Year = {2007},
-}
-```
-
 Start by cloning the `pyannote.audio` repository:
 
 ```bash
@@ -22,14 +11,22 @@ cd pyannote-audio
 export TUTORIAL_DIR="$PWD/tutorials/data_preparation"
 ```
 
+## Quick Download
+
+Make sure to read through this if you'd like to understand how the data is formatted and how pyannote works with data. For a quick installation use the `download.sh` script foudn in this directory. 
+
+```
+bash download.sh
+```
+
 ## Audio files
 
 [Download](http://groups.inf.ed.ac.uk/ami/download/) the `Headset mix` subset of `AMI`.  For convenience, we provide a [script](./download_ami.sh) that does it for you: 
 
 ```bash
-$ export DOWNLOAD_TO=~/.pyannote
-$ mkdir -p ${DOWNLOAD_TO}
-$ bash ${TUTORIAL_DIR}/download_ami.sh ${DOWNLOAD_TO}
+export DOWNLOAD_TO=~/.pyannote
+mkdir -p ${DOWNLOAD_TO}
+bash ${TUTORIAL_DIR}/download_ami.sh ${DOWNLOAD_TO}
 ```
 
 This script also *fixes* some of the files from the dataset that are unreadable with `scipy` because of wrongly formatted wav chunks. The audio files are therefore not exactly the same as the original ones. You should end up with a collection of `wav` files in the `${DOWNLOAD_TO}/amicorpus` directory:

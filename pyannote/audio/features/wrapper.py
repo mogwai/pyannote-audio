@@ -33,6 +33,7 @@ from functools import partial
 from pyannote.database import ProtocolFile
 from pyannote.core import Segment
 from pyannote.core import SlidingWindowFeature
+
 import numpy as np
 
 if TYPE_CHECKING:
@@ -200,6 +201,7 @@ class Wrapper:
             else:
                 try:
                     import torch
+                    from pyannote.audio.pipeline import SpeechActivityDetection
 
                     scorer = torch.hub.load(
                         "pyannote/pyannote-audio", wrappable, **params

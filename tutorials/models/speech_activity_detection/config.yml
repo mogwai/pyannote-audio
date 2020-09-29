@@ -3,7 +3,7 @@
 # batches of 64 audio chunks, and saves model to
 # disk every one (1) day worth of audio.
 task:
-   name: SpeechActivityDetection
+   name: pyannote.audio.labeling.tasks.SpeechActivityDetection
    params:
       duration: 2.0
       batch_size: 64
@@ -14,7 +14,7 @@ task:
 # MUSAN database, with random signal-to-noise
 # ratio between 5 and 20 dB
 data_augmentation:
-   name: AddNoise
+   name: pyannote.audio.augmentation.AddNoise
    params:
       snr_min: 5
       snr_max: 20
@@ -24,7 +24,7 @@ data_augmentation:
 # feature extraction step simply returns the raw
 # waveform.
 feature_extraction:
-   name: RawAudio
+   name: pyannote.audio.features.RawAudio
    params:
       sample_rate: 16000
 
@@ -35,16 +35,16 @@ feature_extraction:
 architecture:
    name: pyannote.audio.models.PyanNet
    params:
-      rnn:
+      recurrent:
          unit: LSTM
          hidden_size: 128
          num_layers: 2
          bidirectional: True
-      ff:
+      linear:
          hidden_size: [128, 128]
 
 # We use a constant learning rate of 1e-2
-scheduler:
-   name: ConstantScheduler
+optimizer:
+   name: pyannote.audio.train.schedulers.ConstantSheduler
    params:
       learning_rate: 0.01
