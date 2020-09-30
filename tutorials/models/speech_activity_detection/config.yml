@@ -45,6 +45,4 @@ architecture:
 
 # We use a constant learning rate of 1e-2
 optimizer:
-   name: pyannote.audio.train.schedulers.ConstantSheduler
-   params:
-      learning_rate: 0.01
+   name: torch.optim.SGD
