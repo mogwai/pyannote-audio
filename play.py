@@ -6,6 +6,7 @@ config = {
  '--cpu': False,
  '--debug': False,
  '--duration': None,
+ '--gpu': 1, 
  '--every': '1',
  '--from': None,
  '--gpu': False,
