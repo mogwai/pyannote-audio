@@ -128,7 +128,8 @@ class Model(nn.Module):
            - training metadata (self.task.train_metadata)
            - the list of output classes (self.task.hparams.classes)
         """
-        pass
+        
+        self.dimension = self.init_dimension()
 
     @property
     def probes(self):
@@ -295,8 +296,7 @@ class Model(nn.Module):
     def get_dimension(self) -> int:
         raise NotImplementedError()
 
-    @property
-    def dimension(self) -> int:
+    def init_dimension(self) -> int:
         """Output dimension
 
         This method needs to be overriden for representation learning tasks,

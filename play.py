@@ -25,7 +25,8 @@ config = {
  'apply': False,
  'extract': False,
  'train': True,
- 'validate': False
+ 'validate': False,
+ 'learning_rate': 1e-3
 }
 
 run_train(config)

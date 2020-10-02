@@ -142,9 +142,9 @@ class PyanNet(Model):
         self.final_activation_ = self.task.get_activation()
 
     def setup(self):
-
         if self.task.problem == Problem.REPRESENTATION:
-            return
+            self.init_dimension()
+            return 
 
         self.classification_ = nn.Linear(
             self.linear_.dimension, len(self.task.hparams.classes), bias=True

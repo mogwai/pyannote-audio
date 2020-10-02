@@ -392,9 +392,9 @@ def run_train(arg: Dict):
         save_last=True,
         period=1,
     )
-    trainer_params["logger"] = pl.loggers.TensorBoardLogger(
-        f"{root_dir}/train/{protocol.name}.{subset}", name="", version=""
-    )
+    # trainer_params["logger"] = pl.loggers.TensorBoardLogger(
+    #     f"{root_dir}/train/{protocol.name}.{subset}", name="", version=""
+    # )
     if getattr(hparams, "batch_size", None) == "auto":
         trainer_params["auto_scale_batch_size"] = "power"
 
@@ -438,43 +438,42 @@ def run_train(arg: Dict):
     trainer_params["distributed_backend"] = (
         "ddp" if torch.cuda.device_count() > 1 else None
     )
-
     trainer = pl.Trainer(**trainer_params)
-
+    trainer.callbacks = trainer.callbacks[1:]
     num_workers = (
         max(1, multiprocessing.cpu_count() // 2)
         if arg["--parallel"] is None
         else int(arg["--parallel"])
     )
+    
+    # TODO Use the automatic learning rate finder
+    # if getattr(hparams, "learning_rate", "auto") == "auto":
 
-    if getattr(hparams, "learning_rate", "auto") == "auto":
+    #     # initialize model with an arbitray learning rate (or lr_find will complain)
+    #     hparams.learning_rate = 1e-3
+    #     task = task_class(
+    #         hparams,
+    #         protocol=protocol,
+    #         subset=subset,
+    #         train_dir=train_dir,
+    #         num_workers=num_workers,
+    #     )
 
-        # initialize model with an arbitray learning rate (or lr_find will complain)
-        hparams.learning_rate = 1e-3
-        task = task_class(
-            hparams,
-            protocol=protocol,
-            subset=subset,
-            train_dir=train_dir,
-            num_workers=num_workers,
-        )
+    #     # suggest good learning rate
+    #     lr_finder = trainer.lr_find(task, min_lr=1e-7, max_lr=10, num_training=1000)
+    #     suggested_lr = lr_finder.suggestion()
 
-        # suggest good learning rate
-        lr_finder = trainer.lr_find(task, min_lr=1e-7, max_lr=10, num_training=1000)
-        suggested_lr = lr_finder.suggestion()
-
-        # initialize model with suggested learning rate
-        hparams.learning_rate = suggested_lr
-        task = task_class(hparams, train_dir=train_dir, num_workers=num_workers)
-
-    else:
-        task = task_class(
-            hparams,
-            protocol=protocol,
-            subset=subset,
-            train_dir=train_dir,
-            num_workers=num_workers,
-        )
+    #     # initialize model with suggested learning rate
+    #     hparams.learning_rate = suggested_lr
+    #     task = task_class(hparams, train_dir=train_dir, num_workers=num_workers)
+    print(hparams)
+    task = task_class(
+        hparams,
+        protocol=protocol,
+        subset=subset,
+        train_dir=train_dir,
+        num_workers=num_workers,
+    )
 
     trainer.fit(task)
 

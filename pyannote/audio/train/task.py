@@ -336,7 +336,6 @@ class BaseTask(pl.LightningModule):
     # =========================================================================
 
     def configure_optimizers(self):
-        breakpoint()
         OptimizerClass = get_class_by_name(self.hparams.optimizer["name"])
         optimizer_params = self.hparams.optimizer.get("params", dict())
         optimizer = OptimizerClass(

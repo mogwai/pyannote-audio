@@ -46,3 +46,6 @@ architecture:
 # We use a constant learning rate of 1e-2
 optimizer:
    name: torch.optim.SGD
+
+learning_rate: 0.01
+
