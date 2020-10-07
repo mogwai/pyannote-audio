@@ -1,36 +1,10 @@
-> The MIT License (MIT)
->
-> Copyright (c) 2019-2020 CNRS
->
-> Permission is hereby granted, free of charge, to any person obtaining a copy
-> of this software and associated documentation files (the "Software"), to deal
-> in the Software without restriction, including without limitation the rights
-> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-> copies of the Software, and to permit persons to whom the Software is
-> furnished to do so, subject to the following conditions:
->
-> The above copyright notice and this permission notice shall be included in all
-> copies or substantial portions of the Software.
->
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-> SOFTWARE.
->
-> AUTHORS
-> Hervé Bredin - http://herve.niderb.fr
-
-
 # Preparing your own dataset for `pyannote.audio`
 
-In this tutorial, you will learn how to setup your own audio dataset for use with `pyannote.audio`.  
+In this tutorial, you will learn how to setup your own audio dataset for use with `pyannote.audio`.
 For illustration purposes, we will use the freely available [AMI corpus](http://groups.inf.ed.ac.uk/ami/corpus):
 
 ```bibtex
-@article{Carletta2007,  
+@article{Carletta2007,
   Title = {{Unleashing the killer corpus: experiences in creating the multi-everything AMI Meeting Corpus}},
   Author = {Carletta, Jean},
   Journal = {Language Resources and Evaluation},
@@ -50,7 +24,7 @@ $ export TUTORIAL_DIR="$PWD/tutorials/data_preparation"
 
 ## Audio files
 
-[Download](http://groups.inf.ed.ac.uk/ami/download/) the `Headset mix` subset of `AMI`.  For convenience, we provide a [script](./download_ami.sh) that does it for you: 
+[Download](http://groups.inf.ed.ac.uk/ami/download/) the `Headset mix` subset of `AMI`.  For convenience, we provide a [script](./download_ami.sh) that does it for you:
 
 ```bash
 $ export DOWNLOAD_TO=/path/to/where/you/want/to/download/ami/database
@@ -70,7 +44,7 @@ $ find . | grep wav | sort | head -n 5
 ./EN2002a/audio/EN2002a.Mix-Headset.wav
 ```
 
-Most `pyannote.audio` tutorials rely on noise extracted from the [MUSAN corpus](http://www.openslr.org/resources/17/musan.tar.gz) for data augmentation.  
+Most `pyannote.audio` tutorials rely on noise extracted from the [MUSAN corpus](http://www.openslr.org/resources/17/musan.tar.gz) for data augmentation.
 For convenience, we also provide a [script](./download_musan.sh) that downloads it for you.
 
 ```bash
@@ -89,7 +63,7 @@ $ find . | grep wav | sort | head -n 5
 ./music/fma/music-fma-0004.wav
 ```
 
-`pyannote.audio` relies on `pyannote.database` that itself relies on a configuration file that indicates where files are located. 
+`pyannote.audio` relies on `pyannote.database` that itself relies on a configuration file that indicates where files are located.
 For convenience, we also provide [such a file](./database.yml) that needs to be copied at the root of the directory that contains the datasets.
 
 ```bash
@@ -108,9 +82,9 @@ Your dataset needs to come with annotations to be of any use for training, in th
 SPEAKER {uri} 1 {start} {duration} <NA> <NA> {identifier} <NA> <NA>
 ```
 
-where 
-* `{uri}` stands for "unique resource identifier" (think of it as the filename), 
-* `{start}` is the start time (elapsed time since the beginning of the file, in seconds) of the speech turn, 
+where
+* `{uri}` stands for "unique resource identifier" (think of it as the filename),
+* `{start}` is the start time (elapsed time since the beginning of the file, in seconds) of the speech turn,
 * `{duration}` is its duration (in seconds),
 * `{identifier}` is the unique speaker identifier.
 
@@ -131,7 +105,7 @@ SPEAKER ES2002b.Mix-Headset 1 100.5660 49.9540 <NA> <NA> FEE005 <NA> <NA>
 SPEAKER ES2002b.Mix-Headset 1 116.6600 0.4940 <NA> <NA> MEE008 <NA> <NA>
 ```
 
-:warning: It is possible that only parts of your files are annotated. This is the role of the UEM file: to tell `pyannote-audio` which part were actually annotated.  
+:warning: It is possible that only parts of your files are annotated. This is the role of the UEM file: to tell `pyannote-audio` which part were actually annotated.
 * If you do not provide this file, `pyannote-audio` assumes that the whole file was annotated and therefore everything that is outside of a speech turn is considered non-speech.
 * If you do provide this file, `pyannote-audio` will only consider as non-speech those regions that are within the limits defined in the UEM file.
 

@@ -1,28 +1,3 @@
-> The MIT License (MIT)
->
-> Copyright (c) 2019-2020 CNRS
->
-> Permission is hereby granted, free of charge, to any person obtaining a copy
-> of this software and associated documentation files (the "Software"), to deal
-> in the Software without restriction, including without limitation the rights
-> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-> copies of the Software, and to permit persons to whom the Software is
-> furnished to do so, subject to the following conditions:
->
-> The above copyright notice and this permission notice shall be included in all
-> copies or substantial portions of the Software.
->
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-> SOFTWARE.
->
-> AUTHORS
-> Hervé Bredin - http://herve.niderb.fr
-
 # Applying pretrained models on your own data
 
 This tutorial assumes that you have already followed the [data preparation](../../data_preparation) tutorial.
@@ -41,8 +16,8 @@ ovl = torch.hub.load('pyannote/pyannote-audio', 'ovl_ami')
 emb = torch.hub.load('pyannote/pyannote-audio', 'emb_ami')
 ```
 
-Note that models will run on GPU by default if one is available.  
-Both device and batch size can be specified manually if needed: 
+Note that models will run on GPU by default if one is available.
+Both device and batch size can be specified manually if needed:
 ```python
 sad = torch.hub.load('pyannote/pyannote-audio', 'sad_ami', device='cpu', batch_size=128)
 ```
@@ -67,7 +42,7 @@ from pyannote.audio.features import Pretrained
 sad = Pretrained(validate_dir='/path/to/validation/directory')
 ```
 
-:warning: If you would like to test those models on your own data, you could do something like this (or [define your own protocol](../../data_preparation)). 
+:warning: If you would like to test those models on your own data, you could do something like this (or [define your own protocol](../../data_preparation)).
 
 
 ```python
@@ -89,7 +64,7 @@ sad_scores = sad(test_file)
 # NOTE: both onset/offset values were tuned on AMI dataset.
 # you might need to use different values for better results.
 from pyannote.audio.utils.signal import Binarize
-binarize = Binarize(offset=0.52, onset=0.52, log_scale=True, 
+binarize = Binarize(offset=0.52, onset=0.52, log_scale=True,
                     min_duration_off=0.1, min_duration_on=0.1)
 
 # speech regions (as `pyannote.core.Timeline` instance)
@@ -102,7 +77,7 @@ speech = binarize.apply(sad_scores, dimension=1)
 # obtain raw SCD scores (as `pyannote.core.SlidingWindowFeature` instance)
 scd_scores = scd(test_file)
 
-# detect peaks and return speaker homogeneous segments 
+# detect peaks and return speaker homogeneous segments
 # NOTE: both alpha/min_duration values were tuned on AMI dataset.
 # you might need to use different values for better results.
 from pyannote.audio.utils.signal import Peak
@@ -122,7 +97,7 @@ ovl_scores = ovl(test_file)
 # NOTE: both onset/offset values were tuned on AMI dataset.
 # you might need to use different values for better results.
 from pyannote.audio.utils.signal import Binarize
-binarize = Binarize(offset=0.55, onset=0.55, log_scale=True, 
+binarize = Binarize(offset=0.55, onset=0.55, log_scale=True,
                     min_duration_off=0.1, min_duration_on=0.1)
 
 # overlapped speech regions (as `pyannote.core.Timeline` instance)
@@ -235,7 +210,7 @@ from sklearn.manifold import TSNE
 tsne = TSNE(n_components=2, metric="cosine")
 X_2d = tsne.fit_transform(X)
 
-# plot 
+# plot
 fig, ax = plt.subplots()
 fig.set_figheight(5)
 fig.set_figwidth(5)

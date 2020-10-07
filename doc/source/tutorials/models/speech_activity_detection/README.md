@@ -1,28 +1,3 @@
-> The MIT License (MIT)
->
-> Copyright (c) 2017-2020 CNRS
->
-> Permission is hereby granted, free of charge, to any person obtaining a copy
-> of this software and associated documentation files (the "Software"), to deal
-> in the Software without restriction, including without limitation the rights
-> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-> copies of the Software, and to permit persons to whom the Software is
-> furnished to do so, subject to the following conditions:
->
-> The above copyright notice and this permission notice shall be included in all
-> copies or substantial portions of the Software.
->
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-> SOFTWARE.
->
-> AUTHOR
-> Hervé Bredin - http://herve.niderb.fr
-
 # End-to-end speech activity detection with `pyannote.audio`
 
 This tutorial assumes that you have already followed the [data preparation](../../data_preparation) tutorial, and teaches how to train, validate, and apply a speech activity detection neural network on the [AMI](http://groups.inf.ed.ac.uk/ami/corpus) dataset using `pyannote-audio` command line tool. In particular, this should reproduce the result reported in second line of Table 1 of [this introductory paper](https://arxiv.org/abs/1911.01255).
@@ -151,7 +126,7 @@ To get a quick idea of how the network is doing on the development set, one can 
 $ export TRN_DIR=${EXP_DIR}/train/AMI.SpeakerDiarization.MixHeadset.train
 $ pyannote-audio sad validate --subset=development --from=10 --to=200 --every=10 ${TRN_DIR} AMI.SpeakerDiarization.MixHeadset
 ```
-It can be run while the model is still training and evaluates the model every 10 epochs. This will create a bunch of files in `VAL_DIR` (defined below). 
+It can be run while the model is still training and evaluates the model every 10 epochs. This will create a bunch of files in `VAL_DIR` (defined below).
 
 In practice, it tunes a simple speech activity detection pipeline every 10 epochs and stores the best hyper-parameter configuration on disk (i.e. the one that maximizes detection f-score):
 
@@ -185,10 +160,10 @@ $ tensorboard --logdir=${EXP_DIR}
 ## Application
 ([↑up to table of contents](#table-of-contents))
 
-Now that we know how the model is doing, we can apply it on test files of the AMI database: 
+Now that we know how the model is doing, we can apply it on test files of the AMI database:
 
 ```bash
-$ pyannote-audio sad apply --subset=test ${VAL_DIR} AMI.SpeakerDiarization.MixHeadset 
+$ pyannote-audio sad apply --subset=test ${VAL_DIR} AMI.SpeakerDiarization.MixHeadset
 ```
 
 Raw model output and speech activity detection results will be dumped into the following directory: `${VAL_DIR}/apply/{BEST_EPOCH}`.

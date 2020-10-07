@@ -8,6 +8,7 @@ pyannote.database >= 4.0
 pyannote.metrics >= 2.3
 pyannote.pipeline >= 1.5.2
 pyYAML >= 3.12
+recommonmark
 scikit-learn >= 0.20.2
 sortedcollections >= 1.0.1
 sortedcontainers >= 2.0.4

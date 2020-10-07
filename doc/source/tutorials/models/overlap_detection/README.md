@@ -1,6 +1,6 @@
 > The MIT License (MIT)
 >
-> Copyright (c) 2017-2020 CNRS
+> Copyright (c) 2019-2020 CNRS
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal
@@ -20,13 +20,12 @@
 > OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 > SOFTWARE.
 >
-> AUTHORS
-> Ruiqing Yin
+> AUTHOR
 > Hervé Bredin - http://herve.niderb.fr
 
-# End-to-end speaker change detection with `pyannote.audio`
+# End-to-end overlapped speech detection with `pyannote.audio`
 
-This tutorial assumes that you have already followed the [data preparation](../../data_preparation) tutorial, and teaches how to train, validate, and apply a speaker change detection neural network on the [AMI](http://groups.inf.ed.ac.uk/ami/corpus) dataset using `pyannote-audio` command line tool. In particular, this should reproduce the result reported in second line of Table 2 of [this introductory paper](https://arxiv.org/abs/1911.01255).
+This tutorial assumes that you have already followed the [data preparation](../../data_preparation) tutorial, and teaches how to train, validate, and apply an overlapped speech detection neural network on the [AMI](http://groups.inf.ed.ac.uk/ami/corpus) dataset using `pyannote-audio` command line tool. In particular, this should reproduce the result reported in second line of Table 3 of [this introductory paper](https://arxiv.org/abs/1911.01255).
 
 ## Table of contents
 - [Citation](#citation)
@@ -39,7 +38,7 @@ This tutorial assumes that you have already followed the [data preparation](../.
 ## Citation
 ([↑up to table of contents](#table-of-contents))
 
-If you use `pyannote-audio` for speaker change detection, please cite the following papers:
+If you use `pyannote-audio` for overlapped speech detection, please cite the following papers:
 
 ```bibtex
 @inproceedings{Bredin2020,
@@ -52,13 +51,13 @@ If you use `pyannote-audio` for speaker change detection, please cite the follow
 }
 ```
 ```bibtex
-@inproceedings{Yin2017,
-  Author = {Ruiqing Yin and Herv\'e Bredin and Claude Barras},
-  Title = {{Speaker Change Detection in Broadcast TV using Bidirectional Long Short-Term Memory Networks}},
-  Booktitle = {{Interspeech 2017, 18th Annual Conference of the International Speech Communication Association}},
-  Year = {2017},
-  Month = {August},
-  Address = {Stockholm, Sweden},
+@inproceedings{Bullock2020,
+  Title = {{Overlap-aware diarization: resegmentation using neural end-to-end overlapped speech detection}},
+  Author = {{Bullock}, Latan{\'e} and {Bredin}, Herv{\'e} and {Garcia-Perera}, Leibny Paola},
+  Booktitle = {ICASSP 2020, IEEE International Conference on Acoustics, Speech, and Signal Processing},
+  Address = {Barcelona, Spain},
+  Month = {May},
+  Year = {2020},
 }
 ```
 
@@ -68,16 +67,16 @@ If you use `pyannote-audio` for speaker change detection, please cite the follow
 To ensure reproducibility, `pyannote-audio` relies on a configuration file defining the experimental setup:
 
 ```bash
-$ export EXP_DIR=tutorials/models/speaker_change_detection
+$ export EXP_DIR=tutorials/models/overlap_detection
 $ cat ${EXP_DIR}/config.yml
 ```
 ```yaml
-# A speaker change detection model is trained.
+# An overlapped speech detection model is trained.
 # Here, training relies on 2s-long audio chunks,
 # batches of 64 audio chunks, and saves model to
 # disk every one (1) day worth of audio.
 task:
-   name: SpeakerChangeDetection
+   name: OverlapDetection
    params:
       duration: 2.0
       batch_size: 64
@@ -130,7 +129,7 @@ scheduler:
 The following command will train the network using the training subset of AMI database for 1000 epochs:
 
 ```bash
-$ pyannote-audio scd train --subset=train --to=1000 --parallel=4 ${EXP_DIR} AMI.SpeakerDiarization.MixHeadset
+$ pyannote-audio ovl train --subset=train --to=1000 --parallel=4 ${EXP_DIR} AMI.SpeakerDiarization.MixHeadset
 ```
 
 This will create a bunch of files in `TRN_DIR` (defined below). One can also follow along the training process using [tensorboard](https://github.com/tensorflow/tensorboard):
@@ -148,25 +147,29 @@ To get a quick idea of how the network is doing on the development set, one can 
 
 ```bash
 $ export TRN_DIR=${EXP_DIR}/train/AMI.SpeakerDiarization.MixHeadset.train
-$ pyannote-audio scd validate --subset=development --from=200 --to=1000 --every=100 ${TRN_DIR} AMI.SpeakerDiarization.MixHeadset
+$ pyannote-audio ovl validate --subset=develop --from=200 --to=1000 --every=100 ${TRN_DIR} AMI.SpeakerDiarization.MixHeadset
 ```
-It can be run while the model is still training and evaluates the model every 100 epochs. This will create a bunch of files in `VAL_DIR` (defined below). 
+It can be run while the model is still training and evaluates the model every 100 epochs. This will create a bunch of files in `VAL_DIR` (defined below).
 
-In practice, it is tuning a simple speaker change detection pipeline and stores the best hyper-parameter configuration on disk (i.e. the one that maximizes segmentation f-score):
+In practice, it is tuning a simple overlapped speech detection pipeline and stores the best hyper-parameter configuration on disk (i.e. the one that maximizes detection f-score):
 
 ```bash
-$ export VAL_DIR=${TRN_DIR}/validate_segmentation_fscore/AMI.SpeakerDiarization.MixHeadset.development
+$ export VAL_DIR=${TRN_DIR}/validate/AMI.SpeakerDiarization.MixHeadset.development
 $ cat ${VAL_DIR}/params.yml
 ```
 ```yaml
-epoch: 700
+detection_fscore: 0.7778446845594343
+epoch: 800
 params:
-  alpha: 0.14589803375031546
-  min_duration: 0.1
-segmentation_fscore: 0.8749258217401696
+  min_duration_off: 0.1
+  min_duration_on: 0.1
+  offset: 0.4685761398070873
+  onset: 0.4685761398070873
+  pad_offset: 0.0
+  pad_onset: 0.0
 ```
 
-See `pyannote.audio.pipeline.speaker_change_detection.SpeakerChangeDetection` for details on the role of each parameter.
+See `pyannote.audio.pipeline.overlap_detection.OverlapDetection ` for details on the role of each parameter.
 
 ![tensorboard screenshot](tb_validate.png)
 
@@ -174,13 +177,13 @@ See `pyannote.audio.pipeline.speaker_change_detection.SpeakerChangeDetection` fo
 ## Application
 ([↑up to table of contents](#table-of-contents))
 
-Now that we know how the model is doing, we can apply it on test files of the AMI database: 
+Now that we know how the model is doing, we can apply it on test files of the AMI database:
 
 ```bash
-$ pyannote-audio scd apply --subset=test ${VAL_DIR} AMI.SpeakerDiarization.MixHeadset 
+$ pyannote-audio ovl apply --subset=test ${VAL_DIR} AMI.SpeakerDiarization.MixHeadset
 ```
 
-Raw model output and speaker change detection results will be dumped into the following directory: `${VAL_DIR}/apply/{BEST_EPOCH}`.
+Raw model output and overlapped speech detection results will be dumped into the following directory: `${VAL_DIR}/apply/{BEST_EPOCH}`.
 
 ## More options
 

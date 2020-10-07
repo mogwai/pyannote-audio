@@ -39,6 +39,7 @@ extensions = [
     'sphinx.ext.githubpages',
     'sphinx.ext.napoleon',
     'sphinx_rtd_theme',
+    'recommonmark',
 ]
 
 napoleon_google_docstring = True
@@ -60,7 +61,7 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = ['.rst', '.md']
 
 # The master toctree document.
 master_doc = 'index'
@@ -173,12 +174,11 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
-
-
-
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
     'python': ('https://docs.python.org/', None),
     'pyannote.core': ('http://pyannote.github.io/pyannote-core', None),
     'pyannote.metrics': ('http://pyannote.github.io/pyannote-metrics', None),
 }
+
+src_paths = ['tutorials/*']

@@ -1,28 +1,3 @@
-> The MIT License (MIT)
->
-> Copyright (c) 2019-2020 CNRS
->
-> Permission is hereby granted, free of charge, to any person obtaining a copy
-> of this software and associated documentation files (the "Software"), to deal
-> in the Software without restriction, including without limitation the rights
-> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-> copies of the Software, and to permit persons to whom the Software is
-> furnished to do so, subject to the following conditions:
->
-> The above copyright notice and this permission notice shall be included in all
-> copies or substantial portions of the Software.
->
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-> SOFTWARE.
->
-> AUTHOR
-> Hervé Bredin - http://herve.niderb.fr
-
 # Speech activity detection pipeline with `pyannote.audio`
 
 Training a model for speech activity detection is not enough to get actual speech activity detection results. One has to also tune detection thresholds (and other optional pipeline hyper-parameters).
@@ -98,7 +73,7 @@ pipeline:
    params:
       # replace {{EXP_DIR}} by its actual value
       precomputed: {{EXP_DIR}}/sad_ami
-      
+
 freeze:
   pad_onset: 0.0
   pad_offset: 0.0
@@ -138,7 +113,7 @@ The `loss:` value actually corresponds to the metric that is currently being opt
 
 Note that the actual content of your `params.yml` might vary because the optimisation process is not deterministic: the longer you wait, the better it gets. We ran the optimization overnight to get `loss` down to 5.6%.
 
-There is no easy way to decide if/when the optimization has converged to the optimal setting. The `pyannote-pipeline train` command will run forever, looking for a better set of hyper-parameters. 
+There is no easy way to decide if/when the optimization has converged to the optimal setting. The `pyannote-pipeline train` command will run forever, looking for a better set of hyper-parameters.
 
 ## Application
 ([↑up to table of contents](#table-of-contents))
@@ -149,7 +124,7 @@ The optimized pipeline can then be applied on the `test` subset (as long as you 
 $ pyannote-pipeline apply --subset=test ${TRN_DIR} AMI.SpeakerDiarization.MixHeadset
 ```
 
-This will create a bunch of files in `${TRN_DIR}/apply/latest` subdirectory, including 
+This will create a bunch of files in `${TRN_DIR}/apply/latest` subdirectory, including
 * `AMI.SpeakerDiarization.MixHeadset.test.rttm` that contains the actual output of the optimized pipeline
 * `AMI.SpeakerDiarization.MixHeadset.test.eval` that provides an evaluation of the result (more or less equivalent to what you would get by using `pyannote.metrics` command line tool).
 

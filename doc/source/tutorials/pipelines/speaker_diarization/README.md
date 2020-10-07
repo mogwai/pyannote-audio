@@ -1,28 +1,3 @@
-> The MIT License (MIT)
->
-> Copyright (c) 2018-2020 CNRS
->
-> Permission is hereby granted, free of charge, to any person obtaining a copy
-> of this software and associated documentation files (the "Software"), to deal
-> in the Software without restriction, including without limitation the rights
-> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-> copies of the Software, and to permit persons to whom the Software is
-> furnished to do so, subject to the following conditions:
->
-> The above copyright notice and this permission notice shall be included in all
-> copies or substantial portions of the Software.
->
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-> SOFTWARE.
->
-> AUTHOR
-> Hervé Bredin - http://herve.niderb.fr
-
 # Speaker diarization pipeline with `pyannote.audio`
 
 In this tutorial, you will learn how to optimize a speaker diarization pipeline using `pyannote-pipeline` command line tool.
@@ -63,7 +38,7 @@ We start by extracting raw scores/embeddings using the following pretrained mode
 
 * `sad_ami` for speech activity detection
 * `scd_ami` for speaker change detection
-* `emb_ami` for speaker embedding 
+* `emb_ami` for speaker embedding
 
 ```bash
 $ export EXP_DIR=tutorials/pipelines/speaker_diarization
@@ -72,7 +47,7 @@ $ for SUBSET in developement test
  > do
  > for TASK in sad scd emb
  >  do
- >    pyannote-audio ${TASK} apply --step=0.1 --pretrained=${TASK}_ami --subset=${SUBSET} ${EXP_DIR} AMI.SpeakerDiarization.MixHeadset    
+ >    pyannote-audio ${TASK} apply --step=0.1 --pretrained=${TASK}_ami --subset=${SUBSET} ${EXP_DIR} AMI.SpeakerDiarization.MixHeadset
  >  done
  > done
 ```
@@ -100,7 +75,7 @@ pipeline:
 
 # one can freeze some of the hyper-parameters
 # for instance, in this example, we are using
-# hyper-parameters obtained in the speech 
+# hyper-parameters obtained in the speech
 # actitivy detection pipeline tutorial
 freeze:
   speech_turn_segmentation:
@@ -131,7 +106,7 @@ pipeline:
 
 # one can freeze some of the hyper-parameters
 # for instance, in this example, we are using
-# hyper-parameters obtained in the speech 
+# hyper-parameters obtained in the speech
 # actitivy detection pipeline tutorial
 freeze:
   speech_turn_segmentation:
@@ -190,9 +165,9 @@ The `loss:` value actually corresponds to the metric that is currently being opt
 
 See `pyannote.audio.pipeline.speaker_diarization.SpeakerDiarization` docstring for details about the `params:` section.
 
-Note that the actual content of your `params.yml` might vary because the optimisation process is not deterministic: the longer you wait, the better it gets. 
+Note that the actual content of your `params.yml` might vary because the optimisation process is not deterministic: the longer you wait, the better it gets.
 
-There is no easy way to decide if/when the optimization has converged to the optimal setting. The `pyannote-pipeline train` command will run forever, looking for a better set of hyper-parameters. 
+There is no easy way to decide if/when the optimization has converged to the optimal setting. The `pyannote-pipeline train` command will run forever, looking for a better set of hyper-parameters.
 
 
 ## Application
@@ -204,7 +179,7 @@ The optimized pipeline can then be applied on the `test` subset:
 $ pyannote-pipeline apply --subset=test ${TRN_DIR} AMI.SpeakerDiarization.MixHeadset
 ```
 
-This will create a bunch of files in `${TRN_DIR}/apply/latest` subdirectory, including 
+This will create a bunch of files in `${TRN_DIR}/apply/latest` subdirectory, including
 * `AMI.SpeakerDiarization.MixHeadset.test.rttm` that contains the actual output of the optimized pipeline
 * `AMI.SpeakerDiarization.MixHeadset.test.eval` that provides an evaluation of the result (more or less equivalent to what you would get by using `pyannote.metrics` command line tool).
 

@@ -9,12 +9,8 @@ Installation
 
 ::
 
-  # create a conda environment with Python 3.6 or later
-  $ conda create --name pyannote python=3.6
-  $ source activate pyannote
-  # install pytorch following official instructions from https://pytorch.org/
-  $ pip install pyannote.audio
-
+conda env create -f environment.yaml
+conda activate pyannote-audio
 
 API documentation
 =================
@@ -23,3 +19,22 @@ API documentation
    :maxdepth: 2
 
    changelog
+
+Tutorials
+=========
+
+.. toctree::
+   :maxdepth: 2
+
+
+   tutorials/finetune/README.md
+   tutorials/models/overlap_detection/README.md
+   tutorials/models/speaker_embedding/README.md
+   tutorials/models/speaker_change_detection/README.md
+   tutorials/models/speech_activity_detection/README.md
+   tutorials/pipelines/speech_activity_detection/README.md
+   tutorials/pipelines/speaker_diarization/README.md
+   tutorials/data_preparation/README.md
+   tutorials/pretrained/model/README.md
+   tutorials/pretrained/pipeline/README.md
+   tutorials/feature_extraction/README.md

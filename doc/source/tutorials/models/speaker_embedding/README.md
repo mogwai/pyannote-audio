@@ -1,31 +1,6 @@
-> The MIT License (MIT)
->
-> Copyright (c) 2017-2020 CNRS
->
-> Permission is hereby granted, free of charge, to any person obtaining a copy
-> of this software and associated documentation files (the "Software"), to deal
-> in the Software without restriction, including without limitation the rights
-> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-> copies of the Software, and to permit persons to whom the Software is
-> furnished to do so, subject to the following conditions:
->
-> The above copyright notice and this permission notice shall be included in all
-> copies or substantial portions of the Software.
->
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-> SOFTWARE.
->
-> AUTHOR
-> Hervé Bredin - http://herve.niderb.fr
-
 # End-to-end speaker embedding with `pyannote.audio`
 
-This tutorial teaches how to train, validate, and apply a speaker embedding neural network with [VoxCeleb](http://www.robots.ox.ac.uk/~vgg/data/voxceleb/) dataset. It assumes that you have already followed both the [data preparation](../../data_preparation) tutorial and the [VoxCeleb installation instructions](https://github.com/pyannote/pyannote-db-voxceleb). 
+This tutorial teaches how to train, validate, and apply a speaker embedding neural network with [VoxCeleb](http://www.robots.ox.ac.uk/~vgg/data/voxceleb/) dataset. It assumes that you have already followed both the [data preparation](../../data_preparation) tutorial and the [VoxCeleb installation instructions](https://github.com/pyannote/pyannote-db-voxceleb).
 
 ## Table of contents
 - [Citation](#citation)
@@ -137,7 +112,7 @@ To get a quick idea of how the network is doing on the development set, one can 
 $ export TRN_DIR=${EXP_DIR}/train/VoxCeleb.SpeakerVerification.VoxCeleb1.train
 $ pyannote-audio emb validate --subset=test --to=250 --every=5 ${TRN_DIR} VoxCeleb.SpeakerVerification.VoxCeleb1
 ```
-It can be run while the model is still training and evaluates the model every 5 epochs. This will create a bunch of files in `VAL_DIR` (defined below). 
+It can be run while the model is still training and evaluates the model every 5 epochs. This will create a bunch of files in `VAL_DIR` (defined below).
 
 In practice, it is tuning a simple speaker verification experiment and stores the best hyper-parameter configuration on disk:
 
@@ -158,10 +133,10 @@ This model reaches 4.4% EER after 220 epochs (approximately 3 days of training).
 ## Application
 ([↑up to table of contents](#table-of-contents))
 
-Now that we know how the model is doing, we can apply it on test files of the AMI database: 
+Now that we know how the model is doing, we can apply it on test files of the AMI database:
 
 ```bash
-$ pyannote-audio emb apply --step=0.1 --subset=test ${VAL_DIR} AMI.SpeakerDiarization.MixHeadset 
+$ pyannote-audio emb apply --step=0.1 --subset=test ${VAL_DIR} AMI.SpeakerDiarization.MixHeadset
 ```
 
 Embeddings will be extracted in `${VAL_DIR}/apply/{BEST_EPOCH}`
